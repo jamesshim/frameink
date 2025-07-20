@@ -1,0 +1,57 @@
+
+/* Pretendard 웹폰트 로딩 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+/* 전체 기본 폰트 설정 */
+body {
+    font-family: 'Pretendard', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* 링크 밑줄 제거 및 색상 상속 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* (선택사항) 마우스 오버 시 색상 변경 */
+a:hover {
+    color: #007bff;
+}
+
+
+/* 게시판 너비 80% 설정 */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* 테이블 헤더 열 너비 설정 */
+.table thead th:nth-child(1) { /* 번호 */
+    width: 5%;
+}
+.table thead th:nth-child(2) { /* 제목 */
+    width: 55%;
+}
+.table thead th:nth-child(3) { /* 글쓴이 */
+    width: 15%;
+}
+.table thead th:nth-child(4) { /* 작성일시 */
+    width: 25%;
+}
+
+/* 로그인 폼 너비 50%로 조정하고 가운데 정렬 */
+.login-form-container {
+    width: 30%;
+    margin: 0 auto;  /* 가운데 정렬 */
+}
+
+/* home 이미지 너비 조정 */
+.home-image {
+    width: 80vw;
+    height: 40vw;/* 뷰포트 너비의 80% */
+    max-width: 100%;     /* 원본보다 더 커지지 않게 제한 */
+    display: block;
+    margin: 2rem auto;   /* 가운데 정렬 및 여백 */
+}

@@ -1,0 +1,53 @@
+<!--네비게이션바-->
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'frameink:index' %}">Frameink</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+
+                {% if user.is_authenticated %}
+                <!-- 로그인 후 메뉴 -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'frameink:board' %}">게시판</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{ user.username }}
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'common:logout' %}">로그아웃</a>
+                    </div>
+                </li>
+
+                {% else %}
+                <!-- 로그인 전 메뉴 -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        로그인
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'common:login' %}">로그인</a>
+                        <a class="dropdown-item" href="{% url 'common:signup' %}">회원가입</a>
+                    </div>
+                </li>
+                {% endif %}
+
+            </ul>
+
+            {% if user.is_authenticated %}
+            <!-- 로그인 후에만 검색 폼 표시 -->
+            <form class="d-flex">
+                <input class="form-control me-sm-2" type="search" placeholder="검색어를 입력하세요">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</nav>
