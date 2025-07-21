@@ -1,0 +1,6 @@
+<h2>{{ video.title }}</h2>
+<video id="videoPlayer" width="640" height="360" controls>
+  <source src="{{ video.video_file.url }}" type="video/mp4">
+  브라우저가 video 태그를 지원하지 않습니다.
+</video>
+<a href="{% url 'video_list' %}">← 목록으로</a>

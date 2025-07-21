@@ -1,0 +1,11 @@
+<h2>업로드된 영상 목록</h2>
+<ul>
+    {% for video in videos %}
+    <li>
+        <a href="{% url 'video_detail' video.pk %}">{{ video.title }}</a>
+    </li>
+    {% empty %}
+    <li>영상이 없습니다.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'video_upload' %}">새 영상 업로드</a>

@@ -1,5 +1,19 @@
 from django import forms
+
 from frameink.models import Question, Answer
+from .models import Video, Project
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['name']
+
+
+class VideoForm(forms.ModelForm):
+    class Meta:
+        model = Video
+        fields = ['title', 'video_file']
 
 
 class QuestionForm(forms.ModelForm):

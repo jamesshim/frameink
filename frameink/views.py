@@ -1,13 +1,75 @@
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.views.decorators.http import require_POST
+
+from .forms import ProjectForm
 from .forms import QuestionForm, AnswerForm
+from .forms import VideoForm
 from .models import Question
-from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
+from .models import Video, Project
 
 
 def index(request):
     return render(request, 'frameink/home.html')
+
+
+def project(request):
+    project_list = Project.objects.all().order_by('name')
+    return render(request, 'frameink/project.html', {'project_list': project_list})
+
+
+def project_detail(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    return render(request, 'frameink/project_detail.html', {'project': project})
+
+
+def project_create(request):
+    project_list = Project.objects.all()
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('frameink:project')
+    else:
+        form = ProjectForm()
+
+    return render(request, 'frameink/project.html', {'form': form, 'project_list': project_list, })
+
+
+@require_POST
+def project_delete(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    project.delete()
+    return redirect('frameink:project')
+
+
+def review_create(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    return render(request, 'frameink/project_detail.html', {'project': project})
+
+
+def video_upload(request):
+    if request.method == 'POST':
+        form = VideoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('video_list')
+    else:
+        form = VideoForm()
+    return render(request, 'video_upload.html', {'form': form})
+
+
+def video_list(request):
+    videos = Video.objects.all().order_by('-uploaded_at')
+    return render(request, 'video_list.html', {'videos': videos})
+
+
+def video_detail(request, pk):
+    video = Video.objects.get(pk=pk)
+    return render(request, 'video_detail.html', {'video': video})
 
 
 def board(request):
