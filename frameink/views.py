@@ -4,9 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
-from .forms import ProjectForm
-from .forms import QuestionForm, AnswerForm
-from .forms import VideoForm
+from .forms import ProjectForm, ReviewForm, QuestionForm, AnswerForm, VideoForm
 from .models import Question
 from .models import Video, Project
 
@@ -48,7 +46,17 @@ def project_delete(request, pk):
 
 def review_create(request, project_id):
     project = get_object_or_404(Project, id=project_id)
-    return render(request, 'frameink/project_detail.html', {'project': project})
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.project = project
+            review.save()
+            return redirect('frameink:project_detail', project_id=project.id)
+    else:
+        form = ReviewForm()
+    return render(request, 'frameink/project_detail.html', {'form': form, 'project': project, })
 
 
 def video_upload(request):

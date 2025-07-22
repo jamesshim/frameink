@@ -1,7 +1,7 @@
 from django import forms
 
 from frameink.models import Question, Answer
-from .models import Video, Project
+from .models import Video, Project, Review
 
 
 class ProjectForm(forms.ModelForm):
@@ -9,6 +9,11 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ['name']
 
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['name']
 
 class VideoForm(forms.ModelForm):
     class Meta:
